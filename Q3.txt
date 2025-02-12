@@ -1,0 +1,73 @@
+Q3.Create class Employee with attributes name,age,designation and use instances of these class as keys in a Map and their salary as value and perform reverse sorting of salary with the help of Comparator.
+Ans.
+    import java.util.*;
+    
+    class Employee {
+    
+        Double Age;
+        String Designation;
+        String Name;
+    
+    
+        public Employee(String name,Double age, String designation) {
+            this.Age = age;
+            this.Designation = designation;
+            this.Name = name;
+        }
+    
+        @Override
+        public int hashCode() {
+            return Objects.hash(Name, Age, Designation);
+        }
+    
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) return true;
+            if (obj == null || getClass() != obj.getClass()) return false;
+            Employee employee = (Employee) obj;
+            return Age == employee.Age &&
+                    Objects.equals(Name, employee.Name) &&
+                    Objects.equals(Designation, employee.Designation);
+        }
+    
+        @Override
+        public String toString() {
+            return "Employee{" +
+                    "Age=" + Age +
+                    ", Designation='" + Designation + '\'' +
+                    ", Name='" + Name + '\'' +
+                    '}';
+        }
+    }
+    
+    class SalaryComparator implements Comparator<Map.Entry<Employee, Double>> {
+        @Override
+        public int compare(Map.Entry<Employee, Double> e1,Map.Entry<Employee, Double> e2) {
+            return e2.getValue().compareTo(e1.getValue());
+        }
+    }
+    
+    public class Main {
+        public static void main(String[] args) {
+    
+            Map<Employee, Double> employeeSalaryMap = new HashMap<>();
+    
+            Employee e1 = new Employee("Aman Gupta", 30.0, "Manager");
+            Employee e2 = new Employee("Kunal Singh", 28.0, "Developer");
+            Employee e3 = new Employee("Amit Yadav", 35.0, "Team Lead");
+            Employee e4 = new Employee("Abhay Saini", 25.0, "Intern");
+    
+            employeeSalaryMap.put(e1, 75000.0);
+            employeeSalaryMap.put(e2, 60000.0);
+            employeeSalaryMap.put(e3, 90000.0);
+            employeeSalaryMap.put(e4, 30000.0);
+    
+            List<Map.Entry<Employee, Double>> list = new ArrayList<>(employeeSalaryMap.entrySet());
+            list.sort(new SalaryComparator());
+    
+            System.out.println("Employees sorted by salary in descending order:");
+            for (Map.Entry<Employee, Double> entry : list) {
+                System.out.println(entry.getKey() + " => " + entry.getValue());
+            }
+        }
+    }
