@@ -1,0 +1,69 @@
+Q2.Given the following class Employee class{ Double Age; Double Salary; String Name} Design the class in such a way that the default sorting should work on firstname and lastname. Also, Write a program to sort Employee objects based on salary using Comparator.
+Ans.
+    import java.util.*;
+    
+    class Employee implements Comparable {
+    
+        Double Age;
+        Double Salary;
+        String Name;
+    
+    
+        public Employee(Double age, Double salary, String name) {
+            this.Age = age;
+            this.Salary = salary;
+            this.Name = name;
+        }
+    
+        @Override
+        public String toString() {
+            return "Employee{Name='" + Name + "', Age=" + Age + ", Salary=" + Salary + "}";
+        }
+    
+        @Override
+        public int compareTo(Object o) {
+            return this.Name.compareTo(((Employee) o).Name);
+        }
+    
+        public Double getAge() {
+            return Age;
+        }
+    
+        public Double getSalary() {
+            return Salary;
+        }
+    
+        public String getName() {
+            return Name;
+        }
+    }
+    
+    class SalaryComparator implements Comparator {
+        @Override
+        public int compare(Object o1, Object o2) {
+            return ((Employee) o1).getSalary().compareTo(((Employee) o2).getSalary());
+        }
+    }
+    
+    public class Main {
+        public static void main(String[] args) {
+    
+            List<Employee> employees = new ArrayList<>();
+    
+            employees.add(new Employee(25.0, 70000.0, "Amit Yadav"));
+            employees.add(new Employee(22.0, 50000.0, "Aman Gupta"));
+            employees.add(new Employee(20.0, 60000.0, "Kunal Singh"));
+    
+            Collections.sort(employees);
+            System.out.println("Sorted by Name:");
+            for (Employee e : employees) {
+                System.out.println(e);
+            }
+    
+            Collections.sort(employees, new SalaryComparator());
+            System.out.println("\nSorted by Salary:");
+            for (Employee e : employees) {
+                System.out.println(e);
+            }
+        }
+    }
