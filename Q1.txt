@@ -1,0 +1,26 @@
+Q1.Write Java code to define List . Insert 5 floating point numbers in List, and using an iterator, find the sum of the numbers in List.
+Ans.
+    import java.util.*;
+    
+    public class Main {
+        public static void main(String[] args) {
+    
+            List<Float> floatingList=new ArrayList<>();
+            floatingList.add(1.01f);
+            floatingList.add(2.02f);
+            floatingList.add(3.03f);
+            floatingList.add(4.04f);
+            floatingList.add(5.05f);
+    
+            Iterator<Float> it= floatingList.iterator();
+    
+            float sum=0;
+            while(it.hasNext()){
+                sum+=it.next();
+            }
+    
+            System.out.println("Sum of the numbers in List -: "+sum);
+    
+    
+        }
+    }
